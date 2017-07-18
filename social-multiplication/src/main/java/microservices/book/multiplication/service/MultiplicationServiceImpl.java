@@ -9,6 +9,7 @@ import microservices.book.multiplication.repository.MultiplicationResultAttemptR
 import microservices.book.multiplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -45,6 +46,9 @@ class MultiplicationServiceImpl implements MultiplicationService {
     public boolean checkAttempt(final MultiplicationResultAttempt attempt) {
         // Check if the user already exists for that alias
         Optional<User> user = userRepository.findByAlias(attempt.getUser().getAlias());
+
+        // Avoids 'hack' attempts
+        Assert.isTrue(!attempt.isCorrect(), "You can't send an attempt marked as correct!!");
 
         // Check if the attempt is correct
         boolean isCorrect = attempt.getResultAttempt() ==

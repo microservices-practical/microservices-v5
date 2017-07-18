@@ -64,6 +64,8 @@ public class MultiplicationServiceImplTest {
         Multiplication multiplication = new Multiplication(50, 60);
         User user = new User("john_doe");
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(
+                user, multiplication, 3000, false);
+        MultiplicationResultAttempt verifiedAttempt = new MultiplicationResultAttempt(
                 user, multiplication, 3000, true);
         MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getId(),
                 attempt.getUser().getId(), true);
@@ -74,7 +76,7 @@ public class MultiplicationServiceImplTest {
 
         // assert
         assertThat(attemptResult).isTrue();
-        verify(attemptRepository).save(attempt);
+        verify(attemptRepository).save(verifiedAttempt);
         verify(eventDispatcher).send(eq(event));
     }
 
