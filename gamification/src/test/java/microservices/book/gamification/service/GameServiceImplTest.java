@@ -123,7 +123,6 @@ public class GameServiceImplTest {
         given(badgeCardRepository.findByUserIdOrderByBadgeTimestampDesc(userId))
                 .willReturn(Collections.singletonList(badgeCard));
 
-
         // when
         GameStats stats = gameService.retrieveStatsForUser(userId);
 
