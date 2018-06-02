@@ -21,4 +21,11 @@ class MultiplicationSolvedEvent implements Serializable {
     private final Long userId;
     private final boolean correct;
 
+    // Empty constructor for JSON/JPA
+    MultiplicationSolvedEvent() {
+        multiplicationResultAttemptId = 0L;
+        userId = 0L;
+        correct = false;
+    }
+
 }
